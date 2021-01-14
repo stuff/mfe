@@ -1,20 +1,24 @@
-import React, { lazy, Suspense, useState, useEffect } from 'react';
-import { Router, Route, Switch, Redirect } from 'react-router-dom';
+// Nothing really new in the container code
+
+import React, { lazy, Suspense, useState, useEffect } from "react";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
 import {
   StylesProvider,
   createGenerateClassName,
-} from '@material-ui/core/styles';
-import { createBrowserHistory } from 'history';
+} from "@material-ui/core/styles";
+import { createBrowserHistory } from "history";
 
-import Progress from './components/Progress';
-import Header from './components/Header';
+import Progress from "./components/Progress";
+import Header from "./components/Header";
 
-const MarketingLazy = lazy(() => import('./components/MarketingApp'));
-const AuthLazy = lazy(() => import('./components/AuthApp'));
-const DashboardLazy = lazy(() => import('./components/DashboardApp'));
+// sidenote: use of lazy function, which is native React, instead of using react-loadable like we do
+// each child app component will be lazy loaded when needed
+const MarketingLazy = lazy(() => import("./components/MarketingApp"));
+const AuthLazy = lazy(() => import("./components/AuthApp"));
+const DashboardLazy = lazy(() => import("./components/DashboardApp"));
 
 const generateClassName = createGenerateClassName({
-  productionPrefix: 'co',
+  productionPrefix: "co",
 });
 
 const history = createBrowserHistory();
@@ -24,7 +28,7 @@ export default () => {
 
   useEffect(() => {
     if (isSignedIn) {
-      history.push('/dashboard');
+      history.push("/dashboard");
     }
   }, [isSignedIn]);
 
